@@ -23,4 +23,6 @@ def read_df_3(sql):
   curs = connection.cursor()
   connection.rollback()
   curs.execute(sql)
+  print(curs.fetchall())
   connection.commit()
+

@@ -19,10 +19,24 @@ def read_df_2(link, sql):
 
 
 def read_df_3(sql):
-  connection = pg.connect(user='brenno', password='123456789', host='209.209.40.88', port='19073', database='folhaDB')
+  connection = pg.connect(user='admin', password='123456789', host='oracle-74473-0.cloudclusters.net', port='12272', database='XE')
   curs = connection.cursor()
-  connection.rollback()
+  # connection.rollback()
   curs.execute(sql)
   print(curs.fetchall())
   connection.commit()
 
+
+
+def connect_db():
+  DIALECT = 'oracle'
+  SQL_DRIVER = 'cx_oracle'
+  USERNAME = 'admin' #enter your username
+  PASSWORD = '123456789' #enter your password
+  HOST = 'oracle-74473-0.cloudclusters.net' #enter the oracle db host url
+  PORT = 12272 # enter the oracle port number
+  SERVICE = 'XE' # enter the oracle db service name
+  ENGINE_PATH_WIN_AUTH = DIALECT + '+' + SQL_DRIVER + '://' + USERNAME + ':' + PASSWORD +'@' + HOST + ':' + str(PORT) + '/?service_name=' + SERVICE
+
+  engine = create_engine(ENGINE_PATH_WIN_AUTH)
+  return engine

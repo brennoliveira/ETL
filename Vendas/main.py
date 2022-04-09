@@ -1,6 +1,6 @@
 from ETL.extract import ExtractClientes,ExtractFornecedores,ExtractItensDeNota,ExtractItensDePedido,ExtractNotasFiscais,ExtractParcelas,ExtractPedidos,ExtractProdutos
 from ETL.transform import TransformaClientes,TransformaFornecedores,TransformaFTImpontualidade,TransformaFTVendas,TransformaProdutos,TransformaTempo,TransformaTiposVendas
-from ETL.load import LoadDmCliente,LoadDmTempo,LoadDmFornecedores,LoadDmProdutos,LoadDmTiposVendas,LoadFTVendas
+from ETL.load import LoadDmCliente,LoadDmTempo,LoadDmFornecedores,LoadDmProdutos,LoadDmTiposVendas,LoadFTVendas,LoadFTImpontualidade
 from connection.connect import engine
 
 
@@ -28,3 +28,4 @@ LoadDmFornecedores()
 LoadDmProdutos()
 LoadDmTiposVendas()
 LoadFTVendas()
+LoadFTImpontualidade()

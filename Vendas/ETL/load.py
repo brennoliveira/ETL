@@ -113,3 +113,19 @@ def LoadFTVendas():
     end = timeit.default_timer()
     exec_time = end - start
     print(f"empo: {exec_time:.2f}s")
+
+
+def LoadFTImpontualidade():
+    LimparBase(engine,ft_impontualidade)
+    print("Iniciando processoTempo de Carregamento dos FTImpontualidade")
+    start = timeit.default_timer()
+    lista = TransformaFTImpontualidade(engine)
+        
+    for item in lista :
+        ins = ft_impontualidade.insert().values(id_tempo = item.id_tempo, id_cliente = item.id_cliente,
+                                                valor_parc_atrasadas=item.valor_parc_atrasadas, valor_parc_total=item.valor_parc_total)
+        engine.execute(ins)
+                
+    end = timeit.default_timer()
+    exec_time = end - start
+    print(f"empo: {exec_time:.2f}s")

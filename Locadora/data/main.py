@@ -1,7 +1,9 @@
 import sqlalchemy as sa
 from connection.connect_db import connect_db
-from ETL.extraction import ExtractArtista, ExtractCopias, ExtractGravadoras, ExtractItensLocacao, ExtractLocacoes, ExtractSocios, ExtractTiposSocios, ExtractTitulos,ExtractTempo 
-from ETL.transformation import TransformArtistas,TransformFTLocacoes,TransformGravadoras,TransformSocios,TransformTitulos,TransformarTempo
+from ETL.extraction import ExtractArtista, ExtractCopias, ExtractGravadoras, ExtractItensLocacao, ExtractLocacoes, ExtractSocios, ExtractTiposSocios, ExtractTitulos 
+from ETL.transformation import TransformArtistas,TransformFTLocacoes,TransformGravadoras,TransformSocios,TransformTitulos,TransformTempo
+from ETL.load import LoadArtista, LoadGravadora, LoadSocio, LoadTitulo,LoadTempo,LoadFTLocacoes
+from ETL.limpar import LimparBase
 
 engine = connect_db()
 # print(engine.table_names())
@@ -36,11 +38,28 @@ ft_locacoes = sa.Table('FT_LOCACOES', metadata, autoload=True, autoload_with=eng
 # socios = ExtractSocios(engine, table_socios)
 # tiposSocios = ExtractTiposSocios(engine, table_tipoSocios)
 # titulos = ExtractTitulos(engine, table_titulos)
-temp = ExtractTempo(engine, table_locacoes)
+# temp = ExtractTempo(engine, table_locacoes)
 
-atistas = TransformArtistas(engine, table_artistas)
-gravadoras = TransformGravadoras(engine, table_gravadoras)
-socios = TransformSocios(engine, table_socios)
-titulos = TransformTitulos(engine, table_titulos)
-tempo = TransformarTempo(temp)
-fatos = TransformFTLocacoes(engine, table_locacoes, table_itensLocacoes)
+# atistas = TransformArtistas(engine, table_artistas)
+# gravadoras = TransformGravadoras(engine, table_gravadoras)
+# socios = TransformSocios(engine, table_socios)
+# titulos = TransformTitulos(engine, table_titulos)
+# tempo = TransformTempo(engine, table_socios)
+# fatos = TransformFTLocacoes(engine, table_locacoes, table_titulos)
+
+LimparBase(engine, ft_locacoes)
+LimparBase(engine, dm_artista)
+LimparBase(engine, dm_gravadora)
+LimparBase(engine, dm_socio)
+LimparBase(engine, dm_titulo)
+LimparBase(engine, dm_tempo)
+
+LoadArtista(engine, table_artistas, dm_artista)
+LoadGravadora(engine, table_gravadoras, dm_gravadora)
+LoadSocio(engine, table_socios, dm_socio)
+LoadTitulo(engine, table_titulos, dm_titulo)
+LoadTempo(engine, table_socios, dm_tempo)
+LoadFTLocacoes(engine, table_locacoes, table_titulos, ft_locacoes)
+
+
+

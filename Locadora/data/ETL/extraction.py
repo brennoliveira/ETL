@@ -12,7 +12,7 @@ def ExtractArtista(engine, table):
     result = engine.execute(stmt).fetchall()
             
     for value in result:
-        artistas.append(Artistas.Artistas(value[0],value[1],value[2],value[3],value[4],value[5],value[6]))
+        artistas.append(Artistas.Artistas(**value))
         count += 1
     
 
@@ -33,7 +33,7 @@ def ExtractCopias(engine, table):
   result = engine.execute(stmt).fetchall()
         
   for value in result:
-      copias.append(Copias.Copias(value[0],value[1],value[2],value[3]))
+      copias.append(Copias.Copias(**value))
       count += 1
   
 
@@ -55,7 +55,7 @@ def ExtractGravadoras(engine, table):
     result = engine.execute(stmt).fetchall()
             
     for value in result:
-        gravadoras.append(Gravadoras.Gravadoras(value[0],value[1],value[2],value[3]))
+        gravadoras.append(Gravadoras.Gravadoras(**value))
         count += 1
     
 
@@ -77,7 +77,7 @@ def ExtractItensLocacao(engine, table):
     result = engine.execute(stmt).fetchall()
             
     for value in result:
-        itens_locacao.append(ItensLocacao.ItensLocacoes(value[0],value[1],value[2],value[3],value[4],value[5],value[6],value[7]))
+        itens_locacao.append(ItensLocacao.ItensLocacoes(**value))
         count += 1
     
 
@@ -99,7 +99,7 @@ def ExtractLocacoes(engine, table):
     result = engine.execute(stmt).fetchall()
             
     for value in result:
-        locacoes.append(Locacoes.Locacoes(value[0],value[1],value[2],value[3],value[4],value[5]))
+        locacoes.append(Locacoes.Locacoes(**value))
         count += 1
     
 
@@ -121,7 +121,7 @@ def ExtractSocios(engine, table):
     result = engine.execute(stmt).fetchall()
             
     for value in result:
-        socios.append(Socios.Socios(value[0],value[1],value[2],value[3],value[4]))
+        socios.append(Socios.Socios(**value))
         count += 1
     
 
@@ -143,7 +143,7 @@ def ExtractTiposSocios(engine, table):
     result = engine.execute(stmt).fetchall()
             
     for value in result:
-        tipos_socios.append(TiposSocios.TiposSocios(value[0],value[1],value[2],value[3]))
+        tipos_socios.append(TiposSocios.TiposSocios(**value))
         count += 1
     
 
@@ -164,7 +164,7 @@ def ExtractTitulos(engine, table):
     result = engine.execute(stmt).fetchall()
             
     for value in result:
-        titulos.append(Titulos.Titulos(value[0],value[1],value[2],value[3],value[4],value[5],value[6],value[7]))
+        titulos.append(Titulos.Titulos(**value))
         count += 1
     
 
@@ -176,23 +176,23 @@ def ExtractTitulos(engine, table):
     return titulos
 
 
-def ExtractTempo(engine, table):
-    tempo = []
-    count = 0
-    print("Iniciando extração de Tempo")
-    start = timeit.default_timer()
+# def ExtractTempo(engine, table):
+#     tempo = []
+#     count = 0
+#     print("Iniciando extração de Tempo")
+#     start = timeit.default_timer()
 
-    stmt = sa.select([table])
-    result = engine.execute(stmt).fetchall()
+#     stmt = sa.select([table])
+#     result = engine.execute(stmt).fetchall()
             
-    for value in result:
-        tempo.append(Tempo.Tempo(value[1]))
-        count += 1
+#     for value in result:
+#         tempo.append(Tempo.Tempo(value[1]))
+#         count += 1
     
 
-    end = timeit.default_timer()
-    exec_time =  (end - start)
-    print(f'itens exraidos: {count}')
-    print(f"Tempo de execução: {exec_time:.2f}s")
+#     end = timeit.default_timer()
+#     exec_time =  (end - start)
+#     print(f'itens exraidos: {count}')
+#     print(f"Tempo de execução: {exec_time:.2f}s")
     
-    return Tempo
+#     return Tempo

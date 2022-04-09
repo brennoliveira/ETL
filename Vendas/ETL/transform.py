@@ -161,10 +161,10 @@ def TransformaFTVendas(engineDM):
     lista_not =  ExtractNotasFiscais(engineDM)
     lista_itns = ExtractItensDeNota(engineDM)
     
-    # for i in lista_itns:
-    for j in lista_not:
-      id_tempo += 1
-      listaDW.append(ft_vendas.FTVendas(id_tempo, id_tempo, id_tempo, j.cod_forn, j.val_total))
+    for i in lista_itns:
+      for j in lista_not:
+        id_tempo += 1
+        listaDW.append(ft_vendas.FTVendas(i.cod_prod, id_tempo, id_tempo, j.cod_forn, j.val_total))
 
     end = timeit.default_timer()
     exec_time = end - start

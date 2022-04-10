@@ -12,6 +12,16 @@ dm_tipos_vendas = sa.Table('DM_TIPOS_VENDAS', metadata, autoload=True, autoload_
 ft_vendas = sa.Table('FT_VENDAS', metadata, autoload=True, autoload_with=engine)
 ft_impontualidade = sa.Table('FT_IMPONTUALIDADE', metadata, autoload=True, autoload_with=engine)
 
+def LimparBases():
+    LimparBase(engine,dm_clientes)
+    LimparBase(engine,dm_tempo)
+    LimparBase(engine,dm_fornecedores)
+    LimparBase(engine,dm_produtos)
+    LimparBase(engine,dm_tipos_vendas)
+    LimparBase(engine,ft_vendas)
+    LimparBase(engine,ft_impontualidade)
+
+
 def LoadDmCliente():
     LimparBase(engine,dm_clientes)
 

@@ -117,18 +117,17 @@ def TransformaTempo(engineDM):
 
 def TransformaFTImpontualidade(engineDM):
     listaDW = []
-    id_tempo = 0
+    count_id = 0
     print("transformação de FTImpontualidade")
     start = timeit.default_timer()
     
-    lista_cli =  ExtractClientes(engineDM)
+    # lista_cli =  ExtractClientes(engineDM)
     lista_par = ExtractParcelas(engineDM)
     
-    for i in lista_cli:
-      for j in lista_par:
-        id_tempo += 1
-        listaDW.append(ft_impontualidade.FTImpotualidade(id_tempo, i.cod_cli,
-                                      calcParcAtrasadas(lista_par), calcParcTotla(lista_par)))
+    for i in lista_par:
+      count_id += 1
+      listaDW.append(ft_impontualidade.FTImpotualidade(count_id, count_id,
+                                    calcParcAtrasadas(lista_par), calcParcTotla(lista_par)))
 
     end = timeit.default_timer()
     exec_time = end - start
@@ -154,20 +153,34 @@ def calcParcTotla(parcelas):
 
 def TransformaFTVendas(engineDM):
     listaDW = []
-    id_tempo = 0
+    count_id = 0
     print("transformação de FTVendas")
     start = timeit.default_timer()
     
-    lista_not =  ExtractNotasFiscais(engineDM)
+    # lista_not =  ExtractNotasFiscais(engineDM)
     lista_itns = ExtractItensDeNota(engineDM)
+    lista_forn = ExtractFornecedores(engineDM)
+    lista = ExtractProdutos(engineDM)
     
-    for i in lista_itns:
-      for j in lista_not:
-        id_tempo += 1
-        listaDW.append(ft_vendas.FTVendas(i.cod_prod, id_tempo, id_tempo, j.cod_forn, j.val_total))
+    for i in lista:
+      count_id += 1
+      listaDW.append(ft_vendas.FTVendas(i.cod_prod, count_id, count_id, 
+                                        getIdFornecedor(i.cod_forn, lista_forn),
+                                        getValorTotal(i.cod_prod, lista_itns)))
 
     end = timeit.default_timer()
     exec_time = end - start
     print(f"empo: {exec_time:.2f}s")
     
     return listaDW
+
+def getIdFornecedor(cod_forn, lista):
+  for i in lista:
+    if i.cod_forn == cod_forn:
+      return i.cod_forn
+
+
+def getValorTotal(cod_prod, lista):
+  for i in lista:
+    if i.cod_prod == cod_prod:
+      return i.qtd_ped * i.preco_pro
